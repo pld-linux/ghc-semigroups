@@ -6,63 +6,54 @@
 Summary:	Anything that associates
 Summary(pl.UTF-8):	Wszystko, co łączne
 Name:		ghc-%{pkgname}
-Version:	0.12.1
+Version:	0.19.1
 Release:	1
 License:	BSD
 Group:		Development/Languages
 #Source0Download: http://hackage.haskell.org/package/semigroups
 Source0:	http://hackage.haskell.org/package/%{pkgname}-%{version}/%{pkgname}-%{version}.tar.gz
-# Source0-md5:	2c55dd7fc53559a7e2495e329fc6eebc
+# Source0-md5:	5c60017c5afb9d6b84c18a8cee6cba84
 URL:		http://hackage.haskell.org/package/semigroups
 BuildRequires:	ghc >= 6.12.3
 BuildRequires:	ghc-base >= 3
-BuildRequires:	ghc-base < 5
 BuildRequires:	ghc-bytestring >= 0.9
-BuildRequires:	ghc-bytestring < 0.11
 BuildRequires:	ghc-containers >= 0.3
-BuildRequires:	ghc-containers < 0.6
-BuildRequires:	ghc-hashable >= 1.1
-BuildRequires:	ghc-hashable < 1.3
-BuildRequires:	ghc-nats >= 0.1
-BuildRequires:	ghc-nats < 1
+BuildRequires:	ghc-deepseq >= 1.1
+BuildRequires:	ghc-hashable >= 1.2.5.0
+BuildRequires:	ghc-tagged >= 0.4.4
+BuildRequires:	ghc-template-haskell >= 2.5.0.0
 BuildRequires:	ghc-text >= 0.10
-BuildRequires:	ghc-text < 1.1
+BuildRequires:	ghc-transformers >= 0.2
+BuildRequires:	ghc-transformers-compat >= 0.5
 BuildRequires:	ghc-unordered-containers >= 0.2
-BuildRequires:	ghc-unordered-containers < 0.3
 %if %{with prof}
 BuildRequires:	ghc-prof >= 6.12.3
 BuildRequires:	ghc-base-prof >= 3
-BuildRequires:	ghc-base-prof < 5
 BuildRequires:	ghc-bytestring-prof >= 0.9
-BuildRequires:	ghc-bytestring-prof < 0.11
 BuildRequires:	ghc-containers-prof >= 0.3
-BuildRequires:	ghc-containers-prof < 0.6
-BuildRequires:	ghc-hashable-prof >= 1.1
-BuildRequires:	ghc-hashable-prof < 1.3
-BuildRequires:	ghc-nats-prof >= 0.1
-BuildRequires:	ghc-nats-prof < 1
+BuildRequires:	ghc-deepseq-prof >= 1.1
+BuildRequires:	ghc-hashable-prof >= 1.2.5.0
+BuildRequires:	ghc-tagged-prof >= 0.4.4
+BuildRequires:	ghc-template-haskell-prof >= 2.5.0.0
 BuildRequires:	ghc-text-prof >= 0.10
-BuildRequires:	ghc-text-prof < 1.1
+BuildRequires:	ghc-transformers-prof >= 0.2
+BuildRequires:	ghc-transformers-compat-prof >= 0.5
 BuildRequires:	ghc-unordered-containers-prof >= 0.2
-BuildRequires:	ghc-unordered-containers-prof < 0.3
 %endif
 BuildRequires:	rpmbuild(macros) >= 1.608
 Requires(post,postun):	/usr/bin/ghc-pkg
 %requires_eq	ghc
 Requires:	ghc-base >= 3
-Requires:	ghc-base < 5
 Requires:	ghc-bytestring >= 0.9
-Requires:	ghc-bytestring < 0.11
 Requires:	ghc-containers >= 0.3
-Requires:	ghc-containers < 0.6
-Requires:	ghc-hashable >= 1.1
-Requires:	ghc-hashable < 1.3
-Requires:	ghc-nats >= 0.1
-Requires:	ghc-nats < 1
+Requires:	ghc-deepseq >= 1.1
+Requires:	ghc-hashable >= 1.2.5.0
+Requires:	ghc-tagged >= 0.4.4
+Requires:	ghc-template-haskell >= 2.5.0.0
 Requires:	ghc-text >= 0.10
-Requires:	ghc-text < 1.1
+Requires:	ghc-transformers >= 0.2
+Requires:	ghc-transformers-compat >= 0.5
 Requires:	ghc-unordered-containers >= 0.2
-Requires:	ghc-unordered-containers < 0.3
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 # debuginfo is not useful for ghc
@@ -93,19 +84,16 @@ Summary(pl.UTF-8):	Biblioteka profilująca %{pkgname} dla GHC
 Group:		Development/Libraries
 Requires:	%{name} = %{version}-%{release}
 Requires:	ghc-base-prof >= 3
-Requires:	ghc-base-prof < 5
 Requires:	ghc-bytestring-prof >= 0.9
-Requires:	ghc-bytestring-prof < 0.11
 Requires:	ghc-containers-prof >= 0.3
-Requires:	ghc-containers-prof < 0.6
-Requires:	ghc-hashable-prof >= 1.1
-Requires:	ghc-hashable-prof < 1.3
-Requires:	ghc-nats-prof >= 0.1
-Requires:	ghc-nats-prof < 1
+Requires:	ghc-deepseq-prof >= 1.1
+Requires:	ghc-hashable-prof >= 1.2.5.0
+Requires:	ghc-tagged-prof >= 0.4.4
+Requires:	ghc-template-haskell-prof >= 2.5.0.0
 Requires:	ghc-text-prof >= 0.10
-Requires:	ghc-text-prof < 1.1
+Requires:	ghc-transformers-prof >= 0.2
+Requires:	ghc-transformers-compat-prof >= 0.5
 Requires:	ghc-unordered-containers-prof >= 0.2
-Requires:	ghc-unordered-containers-prof < 0.3
 
 %description prof
 Profiling %{pkgname} library for GHC. Should be installed when
@@ -168,19 +156,19 @@ rm -rf $RPM_BUILD_ROOT
 %doc LICENSE README.markdown
 %{_libdir}/%{ghcdir}/package.conf.d/%{pkgname}.conf
 %dir %{_libdir}/%{ghcdir}/%{pkgname}-%{version}
-%{_libdir}/%{ghcdir}/%{pkgname}-%{version}/HSsemigroups-%{version}.o
-%{_libdir}/%{ghcdir}/%{pkgname}-%{version}/libHSsemigroups-%{version}.a
+%{_libdir}/%{ghcdir}/%{pkgname}-%{version}/libHSsemigroups-%{version}-*.so
+%{_libdir}/%{ghcdir}/%{pkgname}-%{version}/libHSsemigroups-%{version}-*.a
+%exclude %{_libdir}/%{ghcdir}/%{pkgname}-%{version}/libHSsemigroups-%{version}-*_p.a
 %dir %{_libdir}/%{ghcdir}/%{pkgname}-%{version}/Data
-%{_libdir}/%{ghcdir}/%{pkgname}-%{version}/Data/Semigroup.hi
-%dir %{_libdir}/%{ghcdir}/%{pkgname}-%{version}/Data/List
-%{_libdir}/%{ghcdir}/%{pkgname}-%{version}/Data/List/NonEmpty.hi
+%dir %{_libdir}/%{ghcdir}/%{pkgname}-%{version}/Data/Semigroup
+%{_libdir}/%{ghcdir}/%{pkgname}-%{version}/Data/Semigroup/*.hi
+%{_libdir}/%{ghcdir}/%{pkgname}-%{version}/Data/Semigroup/*.dyn_hi
 
 %if %{with prof}
 %files prof
 %defattr(644,root,root,755)
-%{_libdir}/%{ghcdir}/%{pkgname}-%{version}/libHSsemigroups-%{version}_p.a
-%{_libdir}/%{ghcdir}/%{pkgname}-%{version}/Data/Semigroup.p_hi
-%{_libdir}/%{ghcdir}/%{pkgname}-%{version}/Data/List/NonEmpty.p_hi
+%{_libdir}/%{ghcdir}/%{pkgname}-%{version}/libHSsemigroups-%{version}-*_p.a
+%{_libdir}/%{ghcdir}/%{pkgname}-%{version}/Data/Semigroup/*.p_hi
 %endif
 
 %files doc
